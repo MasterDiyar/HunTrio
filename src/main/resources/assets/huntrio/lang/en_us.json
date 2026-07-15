@@ -9,5 +9,11 @@
   "huntrio.configuration.items": "Item List",
   "huntrio.configuration.logDirtBlock": "Log Dirt Block",
   "huntrio.configuration.magicNumberIntroduction": "Magic Number Text",
-  "huntrio.configuration.magicNumber": "Magic Number"
+  "huntrio.configuration.magicNumber": "Magic Number",
+
+
+  "item.huntrio.aluminium" : "Aluminium",
+  "item.huntrio.aluminium_ingot" : "Aluminium ingot",
+
+  "block.huntrio.aluminium_block" : "Aluminium block"
 }
