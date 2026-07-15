@@ -1,0 +1,13 @@
+{
+  "itemGroup.huntrio": "Example Mod Tab",
+  "block.huntrio.example_block": "Example Block",
+  "item.huntrio.example_item": "Example Item",
+
+  "huntrio.configuration.title": "HunTrio Configs",
+  "huntrio.configuration.section.huntrio.common.toml": "HunTrio Configs",
+  "huntrio.configuration.section.huntrio.common.toml.title": "HunTrio Configs",
+  "huntrio.configuration.items": "Item List",
+  "huntrio.configuration.logDirtBlock": "Log Dirt Block",
+  "huntrio.configuration.magicNumberIntroduction": "Magic Number Text",
+  "huntrio.configuration.magicNumber": "Magic Number"
+}
