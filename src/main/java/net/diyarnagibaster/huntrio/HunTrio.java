@@ -1,6 +1,7 @@
 package net.diyarnagibaster.huntrio;
 
 import net.diyarnagibaster.huntrio.blocks.ModBlocks;
+import net.diyarnagibaster.huntrio.item.ModCreativeModTabs;
 import net.diyarnagibaster.huntrio.item.ModItems;
 import org.slf4j.Logger;
 
@@ -28,6 +29,10 @@ public class HunTrio {
 
         NeoForge.EVENT_BUS.register(this);
 
+
+
+        ModCreativeModTabs.Register(modEventBus);
+
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
@@ -45,6 +50,7 @@ public class HunTrio {
             event.accept(ModItems.ALUMINIUM);
             event.accept(ModItems.ALUMINIUM_INGOT);
             event.accept(ModBlocks.ALUMINIUM_BLOCK);
+            event.accept(ModBlocks.DESICCANT);
         }
     }
 

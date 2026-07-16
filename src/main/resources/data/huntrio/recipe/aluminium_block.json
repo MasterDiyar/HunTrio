@@ -1,0 +1,19 @@
+﻿{
+  "type" : "minecraft:crafting_shaped",
+  "category" : "misc",
+  "key": {
+    "B": {
+      "item" : "huntrio:aluminium_ingot"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id" : "huntrio:aluminium_block"
+  }
+
+}

@@ -22,6 +22,10 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.of()
                     .strength(4f).requiresCorrectToolForDrops().sound(SoundType.ANVIL)));
 
+    public static final DeferredBlock<Block> DESICCANT = registerBlock("desiccant",
+            () -> new Desiccant(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion().
+                    requiresCorrectToolForDrops()));
+
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

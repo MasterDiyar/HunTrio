@@ -1,0 +1,12 @@
+﻿{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 300,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "huntrio:aluminium"
+  },
+  "result": {
+    "id": "huntrio:aluminium_ingot"
+  }
+}
