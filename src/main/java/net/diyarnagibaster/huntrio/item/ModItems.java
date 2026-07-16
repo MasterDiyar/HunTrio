@@ -11,7 +11,9 @@ public class ModItems {
 
     public static final DeferredItem<Item>
             ALUMINIUM = ITEMS.register("aluminium", () -> new Item(new Item.Properties())),
-            ALUMINIUM_INGOT = ITEMS.register("aluminium_ingot", () -> new Item(new Item.Properties()));
+            ALUMINIUM_INGOT = ITEMS.register("aluminium_ingot", () -> new Item(new Item.Properties())),
+            LITHIUM_ORE = ITEMS.register("lithium_ore", () -> new Item(new Item.Properties())),
+            LITHIUM_INGOT = ITEMS.register("lithium_ingot", () -> new Item(new Item.Properties()));;
 
 
     public static void register(IEventBus eventBus){

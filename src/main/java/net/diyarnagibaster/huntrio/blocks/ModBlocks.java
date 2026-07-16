@@ -23,7 +23,7 @@ public class ModBlocks {
                     .strength(4f).requiresCorrectToolForDrops().sound(SoundType.ANVIL)));
 
     public static final DeferredBlock<Block> DESICCANT = registerBlock("desiccant",
-            () -> new Desiccant(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion().
+            () -> new Desiccant(BlockBehaviour.Properties.of().strength(3.0f).noOcclusion().
                     requiresCorrectToolForDrops()));
 
 

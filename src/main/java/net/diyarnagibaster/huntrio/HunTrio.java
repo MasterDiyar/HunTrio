@@ -46,12 +46,6 @@ public class HunTrio {
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS){
-            event.accept(ModItems.ALUMINIUM);
-            event.accept(ModItems.ALUMINIUM_INGOT);
-            event.accept(ModBlocks.ALUMINIUM_BLOCK);
-            event.accept(ModBlocks.DESICCANT);
-        }
     }
 
     @SubscribeEvent

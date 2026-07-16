@@ -1,5 +1,8 @@
 ﻿{
   "variants": {
-    "": { "model": "huntrio:block/desiccant" }
+    "stage=0": { "model": "huntrio:block/desiccant" },
+    "stage=1": { "model": "huntrio:block/desiccant_water" },
+    "stage=2": { "model": "huntrio:block/desiccant_wetsand" },
+    "stage=3": { "model": "huntrio:block/desiccant_lithium" }
   }
 }

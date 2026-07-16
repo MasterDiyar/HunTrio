@@ -16,5 +16,6 @@
   "item.huntrio.aluminium" : "Aluminium",
   "item.huntrio.aluminium_ingot" : "Aluminium ingot",
 
-  "block.huntrio.aluminium_block" : "Aluminium block"
+  "block.huntrio.aluminium_block" : "Aluminium block",
+  "block.huntrio.desiccant" : "Desiccant"
 }

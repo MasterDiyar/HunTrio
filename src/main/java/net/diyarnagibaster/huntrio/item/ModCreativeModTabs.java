@@ -22,6 +22,9 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.ALUMINIUM);
                         output.accept(ModItems.ALUMINIUM_INGOT);
                         output.accept(ModBlocks.ALUMINIUM_BLOCK);
+                        output.accept(ModBlocks.DESICCANT);
+                        output.accept(ModItems.LITHIUM_ORE);
+                        output.accept(ModItems.LITHIUM_INGOT);
                     }).build());
 
     public static void Register(IEventBus eventBus){

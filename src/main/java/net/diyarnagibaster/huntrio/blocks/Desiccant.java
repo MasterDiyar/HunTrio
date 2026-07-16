@@ -1,8 +1,11 @@
 package net.diyarnagibaster.huntrio.blocks;
 
+import net.diyarnagibaster.huntrio.item.ModItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -12,34 +15,76 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class Desiccant extends Block {
 
+    public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 3);
+
     public Desiccant(Properties properties){
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
     }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { builder.add(STAGE);}
+
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
-        if (stack.is(Items.SAND)) {
+        int currentStage = state.getValue(STAGE);
 
-            if (!level.isClientSide()) {
+        if (currentStage == 0 && stack.is(Items.WATER_BUCKET)) {
+            if (!level.isClientSide) {
+                // Меняем стадию на 1
+                level.setBlock(pos, state.setValue(STAGE, 1), 3);
+                // Забираем воду, возвращаем пустое ведро (если игрок не в креативе)
                 if (!player.isCreative()) {
-                    stack.shrink(1);
+                    player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                 }
-
-                // 2. Меняем текущий блок на другой (например, на стекло)
-                level.setBlockAndUpdate(pos, Blocks.GLASS.defaultBlockState());
-
-                // 3. Проигрываем звук
-                level.playSound(null, pos, SoundEvents.SAND_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
-
-            // Возвращаем SUCCESS_ITEM, чтобы игра поняла, что предмет был успешно использован
             return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
 
-        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        if (currentStage == 1 && stack.is(Items.SAND)) {
+            if (!level.isClientSide) {
+                level.setBlock(pos, state.setValue(STAGE, 2), 3);
+                if (!player.isCreative()) stack.shrink(1);
+
+                level.playSound(null, pos, SoundEvents.SAND_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+
+                level.scheduleTick(pos, this, 100);
+            }
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (currentStage == 3) {
+            if (!level.isClientSide) {
+                Block.popResource(level, pos, new ItemStack(ModItems.LITHIUM_ORE.get(), 1));
+
+                level.setBlock(pos, state.setValue(STAGE, 0), 3);
+                level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 1.0F);
+            }
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (state.getValue(STAGE) == 2) {
+
+            if (random.nextInt(100) < 10) {
+                level.setBlock(pos, state.setValue(STAGE, 3), 3);
+            } else {
+                level.setBlock(pos, state.setValue(STAGE, 0), 3);
+            }
+
+            level.playSound(null, pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0F, 1.0F);
+        }
     }
 }

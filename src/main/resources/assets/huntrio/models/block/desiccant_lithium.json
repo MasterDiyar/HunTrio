@@ -5,6 +5,7 @@
 	"textures": {
 		"0": "huntrio:block/desiccant_nogi",
 		"1": "huntrio:block/bottom",
+		"2": "huntrio:block/desiccant_extra",
 		"particle": "huntrio:block/desiccant_nogi"
 	},
 	"elements": [
@@ -64,12 +65,12 @@
 			"to": [16, 11, 16],
 			"rotation": {"angle": 0, "axis": "y", "origin": [0, 10, 0]},
 			"faces": {
-				"north": {"uv": [16, 0, 32, 1], "texture": "#1"},
-				"east": {"uv": [16, 1, 32, 2], "texture": "#1"},
-				"south": {"uv": [16, 2, 32, 3], "texture": "#1"},
-				"west": {"uv": [16, 3, 32, 4], "texture": "#1"},
+				"north": {"uv": [0, 0, 16, 1], "texture": "#1"},
+				"east": {"uv": [0, 0, 16, 1], "texture": "#1"},
+				"south": {"uv": [0, 0, 16, 1], "texture": "#1"},
+				"west": {"uv": [0, 0, 16, 1], "texture": "#1"},
 				"up": {"uv": [16, 16, 0, 0], "texture": "#1"},
-				"down": {"uv": [16, 16, 0, 32], "texture": "#1"}
+				"down": {"uv": [16, 0, 0, 16], "texture": "#1"}
 			}
 		},
 		{
@@ -122,6 +123,19 @@
 				"west": {"uv": [2, 11, 14, 16], "texture": "#0"},
 				"up": {"uv": [2, 12, 0, 0], "texture": "#0"},
 				"down": {"uv": [4, 0, 2, 12], "texture": "#0"}
+			}
+		},
+		{
+			"from": [2, 12, 2],
+			"to": [14, 14, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 12, 2]},
+			"faces": {
+				"north": {"uv": [6, 0, 12, 1], "texture": "#2"},
+				"east": {"uv": [6, 1, 12, 2], "texture": "#2"},
+				"south": {"uv": [6, 2, 12, 3], "texture": "#2"},
+				"west": {"uv": [6, 3, 12, 4], "texture": "#2"},
+				"up": {"uv": [12, 12, 6, 6], "texture": "#2"},
+				"down": {"uv": [6, 6, 0, 12], "texture": "#2"}
 			}
 		}
 	]
