@@ -18,13 +18,16 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(HunTrio.MODID);
 
-    public static final DeferredBlock<Block> ALUMINIUM_BLOCK = registerBlock("aluminium_block",
+    public static final DeferredBlock<Block>
+            ALUMINIUM_BLOCK = registerBlock("aluminium_block",
             () -> new Block(BlockBehaviour.Properties.of()
-                    .strength(4f).requiresCorrectToolForDrops().sound(SoundType.ANVIL)));
-
-    public static final DeferredBlock<Block> DESICCANT = registerBlock("desiccant",
+                    .strength(4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK))),
+            RESEARCH_TABLE = registerBlock("research_table",
+                    () -> new ResearchTableBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops())),
+            DESICCANT = registerBlock("desiccant",
             () -> new Desiccant(BlockBehaviour.Properties.of().strength(3.0f).noOcclusion().
-                    requiresCorrectToolForDrops()));
+                    requiresCorrectToolForDrops().sound(SoundType.LODESTONE)));
+
 
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {

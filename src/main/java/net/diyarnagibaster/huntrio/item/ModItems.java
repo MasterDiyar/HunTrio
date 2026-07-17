@@ -29,7 +29,9 @@ public class ModItems {
             ALUMINIUM_BRUSH = ITEMS.register("aluminium_brush",
             () -> new CustomBrushItem(new Item.Properties().durability(198), 35)),
             NETHERITE_BRUSH = ITEMS.register("netherite_brush",
-            () -> new CustomBrushItem(new Item.Properties().durability(1125), 50));
+            () -> new CustomBrushItem(new Item.Properties().durability(1125), 50)),
+            RESEARCH_BOOK = ITEMS.register("research_book",
+                    ()-> new ResearchBookItem(new Item.Properties()));
 
     public static void register(IEventBus eventBus){
 

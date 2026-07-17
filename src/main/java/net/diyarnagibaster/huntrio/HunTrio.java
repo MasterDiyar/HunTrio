@@ -1,8 +1,11 @@
 package net.diyarnagibaster.huntrio;
 
 import net.diyarnagibaster.huntrio.blocks.ModBlocks;
+import net.diyarnagibaster.huntrio.entity.ModBlockEntities;
 import net.diyarnagibaster.huntrio.item.ModCreativeModTabs;
 import net.diyarnagibaster.huntrio.item.ModItems;
+import net.diyarnagibaster.huntrio.research.ModAttachments;
+import net.neoforged.fml.common.EventBusSubscriber;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -35,6 +38,8 @@ public class HunTrio {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModAttachments.ATTACHMENTS.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 
@@ -52,4 +57,6 @@ public class HunTrio {
     public void onServerStarting(ServerStartingEvent event) {
         LOGGER.info("HELLO from server starting");
     }
+
+
 }
