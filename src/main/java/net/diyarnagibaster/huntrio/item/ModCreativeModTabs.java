@@ -31,6 +31,14 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.COAL_DUST);
                         output.accept(ModItems.GRAPHITE_DUST);
                         output.accept(ModItems.GRAPHITE);
+                        output.accept(ModItems.NICKEL);
+                        output.accept(ModItems.NICKEL_ORE);
+                        output.accept(ModItems.COBALT);
+                        output.accept(ModItems.COBALT_ORE);
+                        output.accept(ModItems.MANGANESE);
+                        output.accept(ModItems.TELLURIUM);
+                        output.accept(ModItems.TELLURIUM_ORE);
+                        output.accept(ModItems.SULFUR);
                         //output.accept(ModItems.);
                     }).build());
 

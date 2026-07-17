@@ -25,6 +25,12 @@
   "item.huntrio.cobalt_ingot": "Cobalt Ingot",
   "item.huntrio.sulfur": "Sulfur",
   "item.huntrio.tellurium_ingot": "Tellurium Ingot",
+  "item.huntrio.tellurium_ore": "Raw Tellurium",
+  "item.huntrio.cobalt_ore" : "Raw Cobalt",
+  "item.huntrio.nickel_ore" : "Raw Nickel",
+  "item.huntrio.graphite_dust" : "Graphite Dust",
+  "item.huntrio.graphite" : "Graphite Rod",
+  "item.huntrio.coal_dust" : "Coal Dust",
 
   "block.huntrio.aluminium_block" : "Aluminium Block",
   "block.huntrio.desiccant" : "Desiccant",
