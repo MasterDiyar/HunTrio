@@ -14,8 +14,22 @@
   "creativetab.huntrio.huntriotab" : "Huntrio ",
 
   "item.huntrio.aluminium" : "Aluminium",
-  "item.huntrio.aluminium_ingot" : "Aluminium ingot",
+  "item.huntrio.aluminium_ingot" : "Aluminium Ingot",
+  "item.huntrio.lithium_ore" : "Lithium Ore",
+  "item.huntrio.lithium_ingot": "Lithium Ingot",
+  "item.huntrio.aluminium_brush": "Aluminium Brush",
+  "item.huntrio.netherite_brush": "Netherite Brush",
+  "item.huntrio.nether_silk": "Nether Silk",
+  "item.huntrio.nickel_ingot": "Nickel Ingot",
+  "item.huntrio.manganese_ingot": "Manganese Ingot",
+  "item.huntrio.cobalt_ingot": "Cobalt Ingot",
+  "item.huntrio.sulfur": "Sulfur",
+  "item.huntrio.tellurium_ingot": "Tellurium Ingot",
 
-  "block.huntrio.aluminium_block" : "Aluminium block",
-  "block.huntrio.desiccant" : "Desiccant"
+  "block.huntrio.aluminium_block" : "Aluminium Block",
+  "block.huntrio.desiccant" : "Desiccant",
+
+  "enchantment.huntrio.knowledge_of_ages": "Knowledge of Ages"
+
+
 }

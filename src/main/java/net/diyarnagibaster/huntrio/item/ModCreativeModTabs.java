@@ -25,6 +25,13 @@ public class ModCreativeModTabs {
                         output.accept(ModBlocks.DESICCANT);
                         output.accept(ModItems.LITHIUM_ORE);
                         output.accept(ModItems.LITHIUM_INGOT);
+                        output.accept(ModItems.NETHER_SILK);
+                        output.accept(ModItems.ALUMINIUM_BRUSH);
+                        output.accept(ModItems.NETHERITE_BRUSH);
+                        output.accept(ModItems.COAL_DUST);
+                        output.accept(ModItems.GRAPHITE_DUST);
+                        output.accept(ModItems.GRAPHITE);
+                        //output.accept(ModItems.);
                     }).build());
 
     public static void Register(IEventBus eventBus){

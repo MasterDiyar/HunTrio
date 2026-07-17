@@ -8,11 +8,11 @@
   ],
   "key": {
     "A": {
-      "item": "huntrio:aluminium"
+      "item": "huntrio:aluminium_ingot"
     }
   },
   "result": {
-    "id": "huntrio:tall_cauldron",
+    "id": "huntrio:desiccant",
     "count": 1
   }
 }

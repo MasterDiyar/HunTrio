@@ -14,18 +14,42 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class Desiccant extends Block {
+
+    private static final VoxelShape SHAPE = Shapes.or(
+            Block.box(0, 0, 14, 2, 10, 16),
+            Block.box(14, 0, 14, 16, 10, 16),
+            Block.box(0, 0, 0, 2, 10, 2),
+            Block.box(14, 0, 0, 16, 10, 2),
+            Block.box(0, 10, 0, 16, 11, 16),
+            Block.box(0, 11, 0, 16, 16, 2),
+            Block.box(0, 11, 14, 16, 16, 16),
+            Block.box(0, 11, 2, 2, 16, 14),
+            Block.box(14, 11, 2, 16, 16, 14)
+    );
+
+    public static VoxelShape getSHAPE() {
+        return SHAPE;
+    }
 
     public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 3);
 
     public Desiccant(Properties properties){
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override

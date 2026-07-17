@@ -1,4 +1,4 @@
-package net.diyarnagibaster.huntrio.item;
+package net.diyarnagibaster.huntrio.events;
 
 import net.diyarnagibaster.huntrio.HunTrio;
 import net.diyarnagibaster.huntrio.item.ModItems;
@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 
 @EventBusSubscriber(modid = HunTrio.MODID)
 public class FurnaceExplosionHandler {
