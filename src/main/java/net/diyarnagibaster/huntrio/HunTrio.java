@@ -5,6 +5,7 @@ import net.diyarnagibaster.huntrio.entity.ModBlockEntities;
 import net.diyarnagibaster.huntrio.item.ModCreativeModTabs;
 import net.diyarnagibaster.huntrio.item.ModItems;
 import net.diyarnagibaster.huntrio.research.ModAttachments;
+import net.diyarnagibaster.huntrio.research.ModRecipes;
 import net.neoforged.fml.common.EventBusSubscriber;
 import org.slf4j.Logger;
 
@@ -40,6 +41,7 @@ public class HunTrio {
         ModBlocks.register(modEventBus);
         ModAttachments.ATTACHMENTS.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 

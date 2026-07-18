@@ -1,0 +1,17 @@
+{
+  "type": "huntrio:research",
+  "ingredients": [
+    { "item": "minecraft:raw_iron" },
+    { "item": "minecraft:bone_meal" }
+  ],
+  "reagent": {
+    "item": "minecraft:potion",
+    "components": {
+      "minecraft:potion_contents": "minecraft:awkward"
+    }
+  },
+  "result": {
+    "id": "huntrio:nickel_ore",
+    "count": 1
+  }
+}
