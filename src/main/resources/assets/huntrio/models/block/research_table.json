@@ -1,6 +1,12 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "huntrio:block/aluminium_block"
+    "down": "huntrio:block/research_table_bottom",
+    "up": "huntrio:block/research_table_top",
+    "north": "huntrio:block/research_table_side",
+    "south": "huntrio:block/research_table_side",
+    "east": "huntrio:block/research_table_side",
+    "west": "huntrio:block/research_table_side",
+    "particle": "huntrio:block/research_table_side"
   }
 }

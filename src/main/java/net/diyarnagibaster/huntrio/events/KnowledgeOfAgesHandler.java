@@ -26,12 +26,16 @@ public class KnowledgeOfAgesHandler {
 
         ItemStack tool = player.getMainHandItem();
         var registryAccess = event.getLevel().registryAccess();
+        var enchantRegistry = registryAccess.registryOrThrow(Registries.ENCHANTMENT);
 
-        var knowledgeEnchant = registryAccess
-                .registryOrThrow(Registries.ENCHANTMENT)
-                .getHolderOrThrow(net.diyarnagibaster.huntrio.enchantments.ModEnchantments.KNOWLEDGE_OF_AGES);
+        // 1. БЕЗОПАСНО пытаемся получить зачарование
+        var knowledgeEnchantOpt = enchantRegistry.getHolder(net.diyarnagibaster.huntrio.enchantments.ModEnchantments.KNOWLEDGE_OF_AGES);
 
-        int knowledgeLevel = EnchantmentHelper.getTagEnchantmentLevel(knowledgeEnchant, tool);
+        // Если зачарование не найдено в реестре (нет JSON-файла), просто прерываем код
+        if (knowledgeEnchantOpt.isEmpty()) return;
+
+        // 2. Получаем уровень зачарования, передавая найденный Holder
+        int knowledgeLevel = EnchantmentHelper.getTagEnchantmentLevel(knowledgeEnchantOpt.get(), tool);
 
         // Если зачарование есть на инструменте
         if (knowledgeLevel > 0) {
@@ -39,25 +43,22 @@ public class KnowledgeOfAgesHandler {
             BlockPos pos = event.getPos();
             Level level = (Level) event.getLevel();
 
-            // Определяем, какой предмет должен выпасть в зависимости от руды
             ItemStack dropStack = getSecondaryDrop(state);
 
             if (!dropStack.isEmpty()) {
-                // Расчет шанса: 1 lvl = 25%, 2 lvl = 35%, 3 lvl = 45%
                 float dropChance = 0.25F + ((knowledgeLevel - 1) * 0.10F);
 
                 if (level.random.nextFloat() < dropChance) {
-                    // Получаем уровень Удачи (Fortune) с этого же инструмента
-                    var fortuneEnchant = registryAccess
-                            .registryOrThrow(Registries.ENCHANTMENT)
-                            .getHolderOrThrow(Enchantments.FORTUNE);
-                    int fortuneLevel = EnchantmentHelper.getTagEnchantmentLevel(fortuneEnchant, tool);
+                    // Безопасно получаем удачу (Удача точно есть в ванильной игре, но для надежности тоже лучше использовать getHolder)
+                    var fortuneEnchantOpt = enchantRegistry.getHolder(Enchantments.FORTUNE);
+                    int fortuneLevel = 0;
+                    if (fortuneEnchantOpt.isPresent()) {
+                        fortuneLevel = EnchantmentHelper.getTagEnchantmentLevel(fortuneEnchantOpt.get(), tool);
+                    }
 
-                    // Считаем количество с учетом удачи
                     int count = calculateFortuneDrop(level, fortuneLevel);
                     dropStack.setCount(count);
 
-                    // Спавним предмет в мире
                     Block.popResource(level, pos, dropStack);
                 }
             }

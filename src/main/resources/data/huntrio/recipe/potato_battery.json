@@ -1,0 +1,24 @@
+{
+  "type" : "minecraft:crafting_shaped",
+  "category" : "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:copper_ingot"
+    },
+    "B": {
+      "item" : "minecraft:potato"
+    },
+    "C": {
+      "item" : "huntrio:graphite"
+    }
+  },
+  "pattern": [
+    "CA ",
+    "AB ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id" : "huntrio:potato_battery"
+  }
+}

@@ -48,7 +48,7 @@ public class ResearchTableBlock extends BaseEntityBlock {
 
     @Override
     protected RenderShape getRenderShape(BlockState pState) {
-        return RenderShape.MODEL; // Чтобы блок рендерился нормально
+        return RenderShape.MODEL;
     }
 
     @Override
@@ -116,7 +116,6 @@ public class ResearchTableBlock extends BaseEntityBlock {
             }
         }
 
-        // Сюда код дойдет только если стол уже полностью забит предметами, а рецепт не подошел
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
@@ -130,19 +129,16 @@ public class ResearchTableBlock extends BaseEntityBlock {
             return InteractionResult.PASS;
 
         for (int i = tableEntity.inventory.getSlots() - 1; i >= 0; i--) {
-            // Печатаем шаг ДО любых проверок
             System.out.println("== ЦИКЛ ДОШЕЛ ДО i = " + i + " ==");
 
             ItemStack stackInSlot = tableEntity.inventory.getStackInSlot(i);
             System.out.println("В слоте " + i + " лежит: " + (stackInSlot.isEmpty() ? "ПУСТО" : stackInSlot.getDisplayName().getString()));
 
-            // Если слот пустой, идем к следующему
             if (stackInSlot.isEmpty()) {
                 System.out.println("Слот " + i + " пуст, пропускаем (continue).");
                 continue;
             }
 
-            // Если дошли сюда, значит предмет есть
             System.out.println("Извлекаем предмет из слота " + i + "!");
             ItemStack extracted = tableEntity.inventory.extractItem(i, 1, false);
 

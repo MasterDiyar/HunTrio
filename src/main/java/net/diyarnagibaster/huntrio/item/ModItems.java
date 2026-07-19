@@ -2,6 +2,7 @@ package net.diyarnagibaster.huntrio.item;
 
 import net.diyarnagibaster.huntrio.HunTrio;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PotionItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -24,8 +25,11 @@ public class ModItems {
             COBALT_ORE  = ITEMS.register("cobalt_ore", () -> new Item(new Item.Properties())),
             COBALT  = ITEMS.register("cobalt_ingot", () -> new Item(new Item.Properties())),
             SULFUR = ITEMS.register("sulfur", () -> new Item(new Item.Properties())),
+            SULFUR_JAR = ITEMS.register("sulfur_in_a_jar", () -> new PotionItem(new Item.Properties())),
             TELLURIUM_ORE = ITEMS.register("tellurium_ore", () -> new Item(new Item.Properties())),
             TELLURIUM = ITEMS.register("tellurium_ingot", () -> new Item(new Item.Properties())),
+            SALT_JAR = ITEMS.register("salt_in_a_jar", () -> new Item(new Item.Properties())),
+            POTATO_BATTERY = ITEMS.register(("potato_battery"), () -> new Item(new Item.Properties())),
             ALUMINIUM_BRUSH = ITEMS.register("aluminium_brush",
             () -> new CustomBrushItem(new Item.Properties().durability(198), 35)),
             NETHERITE_BRUSH = ITEMS.register("netherite_brush",

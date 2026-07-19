@@ -40,6 +40,9 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.TELLURIUM_ORE);
                         output.accept(ModItems.SULFUR);
                         output.accept(ModBlocks.RESEARCH_TABLE);
+                        output.accept(ModItems.RESEARCH_BOOK);
+                        output.accept(ModItems.POTATO_BATTERY);
+                        output.accept(ModItems.SULFUR_JAR);
                         //output.accept(ModItems.);
                     }).build());
 

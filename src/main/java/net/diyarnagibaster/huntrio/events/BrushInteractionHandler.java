@@ -78,33 +78,28 @@ public class BrushInteractionHandler {
             brushProgress.put(playerId, 0);
         }
 
-        // Увеличиваем таймер
         int progress = brushProgress.getOrDefault(playerId, 0) + 1;
         brushProgress.put(playerId, progress);
 
-        // ================== ЛОГИКА ДЛЯ УГОЛЬНОГО БЛОКА ==================
         if (state.is(Blocks.COAL_BLOCK)) {
-            // Каждые 10 тиков (полсекунды) проигрываем звук шорканья
             if (progress % 10 == 0 && !level.isClientSide()) {
                 level.playSound(null, pos, SoundEvents.BRUSH_GENERIC, SoundSource.PLAYERS, 1.0F, 1.0F);
             }
 
-            // 40 тиков = ровно 2 секунды зажатия
-            if (progress >= 40) {
+            // 120 тиков = ровно 6 секунды зажатия
+            if (progress >= 120) {
                 if (!level.isClientSide()) {
-                    ItemStack dust = new ItemStack(ModItems.GRAPHITE_DUST.get(), 9);
+                    ItemStack dust = new ItemStack(ModItems.COAL_DUST.get(), 9);
                     Block.popResource(level, pos, dust);
                     level.destroyBlock(pos, false);
                     itemStack.hurtAndBreak(9, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
                 }
-                player.stopUsingItem(); // Автоматически прерываем анимацию чистки
+                player.stopUsingItem();
                 resetProgress(playerId);
             }
         }
 
-        // ================== ЛОГИКА ДЛЯ ГРЯЗИ ==================
         else if (state.is(Blocks.DIRT)) {
-            // Каждые 10 тиков (полсекунды) звук и шанс потратить прочность
             if (progress % 10 == 0 && !level.isClientSide()) {
                 level.playSound(null, pos, SoundEvents.BRUSH_SAND, SoundSource.PLAYERS, 1.0F, 1.0F);
                 if (RANDOM.nextBoolean()) {
@@ -112,7 +107,6 @@ public class BrushInteractionHandler {
                 }
             }
 
-            // 60 тиков = ровно 3 секунды зажатия (можешь изменить на 40 или любое другое)
             if (progress >= 60) {
                 if (!level.isClientSide()) {
                     int dropChance = 30;
@@ -139,14 +133,12 @@ public class BrushInteractionHandler {
                     level.setBlockAndUpdate(pos, Blocks.COARSE_DIRT.defaultBlockState());
                     level.playSound(null, pos, SoundEvents.BRUSH_GENERIC, SoundSource.PLAYERS, 1.0F, 1.0F);
                 }
-                player.stopUsingItem(); // Автоматически прерываем анимацию чистки
+                player.stopUsingItem();
                 resetProgress(playerId);
             }
         }
     }
 
-    // Это событие поймает момент, когда игрок отпустил мышку ДО того,
-    // как блок очистился (чтобы прогресс не "сохранялся" в воздухе)
     @SubscribeEvent
     public static void onBrushStop(LivingEntityUseItemEvent.Stop event) {
         if (event.getEntity() instanceof Player player) {
@@ -154,7 +146,6 @@ public class BrushInteractionHandler {
         }
     }
 
-    // Вспомогательный метод для быстрой очистки памяти
     private static void resetProgress(UUID playerId) {
         brushProgress.remove(playerId);
         brushingBlock.remove(playerId);
