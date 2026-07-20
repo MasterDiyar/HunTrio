@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "huntrio:block/electro_furnace_bottom",
+    "up": "huntrio:block/electro_furnace_top",
+    "north": "huntrio:block/electro_furnace_face",
+    "south": "huntrio:block/electro_furnace_side",
+    "east": "huntrio:block/electro_furnace_side",
+    "west": "huntrio:block/electro_furnace_side",
+    "particle": "huntrio:block/research_table_side"
+  }
+}

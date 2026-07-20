@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:block/cube",
   "textures": {
     "down": "huntrio:block/research_table_bottom",
     "up": "huntrio:block/research_table_top",

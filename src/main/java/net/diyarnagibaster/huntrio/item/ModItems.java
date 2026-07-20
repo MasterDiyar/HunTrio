@@ -1,9 +1,11 @@
 package net.diyarnagibaster.huntrio.item;
 
 import net.diyarnagibaster.huntrio.HunTrio;
+import net.diyarnagibaster.huntrio.entity.ModEntities;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PotionItem;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -30,12 +32,15 @@ public class ModItems {
             TELLURIUM = ITEMS.register("tellurium_ingot", () -> new Item(new Item.Properties())),
             SALT_JAR = ITEMS.register("salt_in_a_jar", () -> new Item(new Item.Properties())),
             POTATO_BATTERY = ITEMS.register(("potato_battery"), () -> new Item(new Item.Properties())),
+            JOYSTICK = ITEMS.register("joystick", ()-> new JoystickItem(new Item.Properties())),
             ALUMINIUM_BRUSH = ITEMS.register("aluminium_brush",
             () -> new CustomBrushItem(new Item.Properties().durability(198), 35)),
             NETHERITE_BRUSH = ITEMS.register("netherite_brush",
             () -> new CustomBrushItem(new Item.Properties().durability(1125), 50)),
             RESEARCH_BOOK = ITEMS.register("research_book",
-                    ()-> new ResearchBookItem(new Item.Properties()));
+                    ()-> new ResearchBookItem(new Item.Properties())),
+            ROBOT_SPAWN_EGG = ITEMS.register("robot_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.DRONE_MK1, 0x7A7A7A, 0x1F1F1F, new Item.Properties()));
 
     public static void register(IEventBus eventBus){
 

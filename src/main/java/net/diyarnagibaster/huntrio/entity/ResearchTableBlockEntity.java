@@ -16,9 +16,8 @@ public class ResearchTableBlockEntity extends BlockEntity {
     public final ItemStackHandler inventory = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {
-            setChanged(); // Отмечаем, что данные изменились
+            setChanged();
             if (level != null && !level.isClientSide()) {
-                // Отправляем пакет синхронизации на клиент для рендера
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }

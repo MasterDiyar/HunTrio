@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "huntrio:block/electro_furnace"
+    },
+    "facing=east": {
+      "model": "huntrio:block/electro_furnace",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "huntrio:block/electro_furnace",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "huntrio:block/electro_furnace",
+      "y": 270
+    }
+  }
+}

@@ -1,11 +1,14 @@
 package net.diyarnagibaster.huntrio;
 
 import net.diyarnagibaster.huntrio.blocks.ModBlocks;
+import net.diyarnagibaster.huntrio.component.ModDataComponents;
 import net.diyarnagibaster.huntrio.entity.ModBlockEntities;
+import net.diyarnagibaster.huntrio.entity.ModEntities;
 import net.diyarnagibaster.huntrio.item.ModCreativeModTabs;
 import net.diyarnagibaster.huntrio.item.ModItems;
 import net.diyarnagibaster.huntrio.research.ModAttachments;
 import net.diyarnagibaster.huntrio.research.ModRecipes;
+import net.diyarnagibaster.huntrio.server.ModNetworkHandler;
 import net.neoforged.fml.common.EventBusSubscriber;
 import org.slf4j.Logger;
 
@@ -42,6 +45,8 @@ public class HunTrio {
         ModAttachments.ATTACHMENTS.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModRecipes.register(modEventBus);
+        ModDataComponents.COMPONENTS.register(modEventBus);
+        ModEntities.ENTITY_TYPES.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 

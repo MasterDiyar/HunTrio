@@ -1,7 +1,6 @@
 {
   "variants": {
-    "": [
-      {"model" : "huntrio:block/aluminium_block"}
-    ]
+    "":
+      {"model" : "huntrio:block/research_table"}
   }
 }

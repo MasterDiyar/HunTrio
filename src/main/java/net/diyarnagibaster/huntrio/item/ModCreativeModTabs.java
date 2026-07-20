@@ -43,6 +43,9 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.RESEARCH_BOOK);
                         output.accept(ModItems.POTATO_BATTERY);
                         output.accept(ModItems.SULFUR_JAR);
+                        output.accept(ModItems.SALT_JAR);
+                        output.accept(ModItems.JOYSTICK);
+                        output.accept(ModItems.ROBOT_SPAWN_EGG);
                         //output.accept(ModItems.);
                     }).build());
 
