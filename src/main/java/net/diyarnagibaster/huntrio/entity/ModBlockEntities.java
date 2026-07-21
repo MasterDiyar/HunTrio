@@ -18,7 +18,8 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(
                             ResearchTableBlockEntity::new,
                             ModBlocks.RESEARCH_TABLE.get()
-                    ).build(null)),
+                    ).build(null));
+    public static final Supplier<BlockEntityType<ElectricFurnaceBlockEntity>>
             ELECTRIC_FURNACE = BLOCK_ENTITIES.register("electric_furnace_be", ()-> BlockEntityType.Builder.of(
                     ElectricFurnaceBlockEntity::new,
                     ModBlocks.ELECTRIC_FURNACE.get()
@@ -26,5 +27,6 @@ public class ModBlockEntities {
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
+
     }
 }

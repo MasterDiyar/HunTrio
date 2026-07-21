@@ -1,8 +1,15 @@
 package net.diyarnagibaster.huntrio.entity;
 
+import net.diyarnagibaster.huntrio.gui.ElectricFurnaceMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -11,9 +18,11 @@ import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
-public class ElectricFurnaceBlockEntity extends BlockEntity {
+import javax.annotation.Nullable;
 
-    public final ItemStackHandler inventory = new ItemStackHandler(3) {
+public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvider {
+
+    public final ItemStackHandler inventory = new ItemStackHandler(5) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -94,5 +103,37 @@ public class ElectricFurnaceBlockEntity extends BlockEntity {
         super.loadAdditional(tag, registries);
         inventory.deserializeNBT(registries, tag.getCompound("inventory"));
         energyStorage.receiveEnergy(tag.getInt("energy"), true);
+    }
+
+    protected final ContainerData data = new ContainerData() {
+        @Override
+        public int get(int index) {
+            return switch (index) {
+                case 0 -> energyStorage.getEnergyStored();
+                case 1 -> energyStorage.getMaxEnergyStored();
+                default -> 0;
+            };
+        }
+
+        @Override
+        public void set(int index, int value) {
+        }
+
+        @Override
+        public int getCount() {
+            return 2; // Передаем 2 значения
+        }
+    };
+
+    // 3. Реализуем методы MenuProvider
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("block.huntrio.electric_furnace");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        return new ElectricFurnaceMenu(containerId, playerInventory, this, this.data);
     }
 }

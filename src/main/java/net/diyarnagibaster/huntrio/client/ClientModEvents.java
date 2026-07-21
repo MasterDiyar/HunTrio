@@ -4,6 +4,8 @@ import net.diyarnagibaster.huntrio.HunTrio;
 import net.diyarnagibaster.huntrio.client.model.DroneMK1;
 import net.diyarnagibaster.huntrio.entity.DroneEntity;
 import net.diyarnagibaster.huntrio.entity.ModEntities;
+import net.diyarnagibaster.huntrio.gui.ElectricFurnaceScreen;
+import net.diyarnagibaster.huntrio.gui.ModMenus;
 import net.diyarnagibaster.huntrio.server.DroneControlPayload;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -11,6 +13,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 @EventBusSubscriber(modid = HunTrio.MODID)
@@ -65,5 +68,10 @@ public class ClientModEvents {
             mc.player.input.jumping = false;
             mc.player.input.shiftKeyDown = false;
         }
+    }
+
+    @SubscribeEvent
+    public static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(ModMenus.ELECTRIC_FURNACE_MENU.get(), ElectricFurnaceScreen::new);
     }
 }
