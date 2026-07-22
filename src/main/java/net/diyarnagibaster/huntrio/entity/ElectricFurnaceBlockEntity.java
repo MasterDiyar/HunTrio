@@ -77,53 +77,32 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
 
         boolean isDirty = false;
 
-        // Будем выводить дебаг-сообщения только раз в секунду (каждые 20 тиков)
-        boolean shouldDebug = (level.getGameTime() % 20 == 0);
 
-        if (shouldDebug) {
-            System.out.println("=== [DEBUG ПЕЧИ] ===");
-            System.out.println("Энергия внутри печи: " + energyStorage.getEnergyStored() + " / " + energyStorage.getMaxEnergyStored());
-        }
-
-        // --- ЛОГИКА БАТАРЕИ ---
         ItemStack batteryStack = inventory.getStackInSlot(2);
         if (!batteryStack.isEmpty()) {
-            if (shouldDebug) System.out.println("[Батарея] Предмет в слоте 2: " + batteryStack.getItem());
 
             IEnergyStorage batteryEnergy = batteryStack.getCapability(Capabilities.EnergyStorage.ITEM, null);
 
-            if (batteryEnergy == null) {
-                if (shouldDebug) System.out.println("[Батарея] ОШИБКА: Capability энергии = NULL (Игра не считает это батарейкой!)");
-            } else {
-                if (shouldDebug) System.out.println("[Батарея] Заряд предмета: " + batteryEnergy.getEnergyStored());
+            if (batteryEnergy != null) {
 
                 if (batteryEnergy.canExtract()) {
                     int energyNeeded = energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored();
                     if (energyNeeded > 0) {
                         int extracted = batteryEnergy.extractEnergy(Math.min(energyNeeded, 1000), false);
                         if (extracted > 0) {
-                            if (shouldDebug) System.out.println("[Батарея] Успешно высосано: " + extracted + " FE");
                             energyStorage.receiveEnergy(extracted, false);
                             inventory.setStackInSlot(2, batteryStack);
                             isDirty = true;
-                        } else {
-                            if (shouldDebug) System.out.println("[Батарея] Метод extractEnergy вернул 0!");
                         }
                     }
-                } else {
-                    if (shouldDebug) System.out.println("[Батарея] ОШИБКА: canExtract() вернул false!");
                 }
             }
-        } else {
-            if (shouldDebug) System.out.println("[Батарея] Слот 2 пуст.");
         }
 
-        // --- ЛОГИКА КРАФТА ---
         ItemStack input1 = inventory.getStackInSlot(0);
         ItemStack input2 = inventory.getStackInSlot(1);
 
         if (input1.isEmpty() && input2.isEmpty()) {
-            if (shouldDebug) System.out.println("[Крафт] Слоты 0 и 1 пусты. Ждем.");
             if (this.progress > 0) {
                 this.progress = 0;
                 setChanged();
@@ -131,7 +110,6 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
             return;
         }
 
-        if (shouldDebug) System.out.println("[Крафт] Пытаемся найти рецепт для: " + input1.getItem() + " + " + input2.getItem());
 
         ElectricFurnaceInput recipeInput = new ElectricFurnaceInput(input1, input2);
         var recipeHolder = level.getRecipeManager().getRecipeFor(ModRecipes.ELECTRIC_SMELTING_TYPE.get(), recipeInput, level);
@@ -141,13 +119,9 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
             this.maxProgress = recipe.processingTime();
             int fePerTick = recipe.energyCost() / this.maxProgress;
 
-            if (shouldDebug) System.out.println("[Крафт] Рецепт НАЙДЕН! Требуется: " + fePerTick + " FE/тик. Прогресс: " + this.progress + "/" + this.maxProgress);
 
             boolean hasEnergy = energyStorage.getEnergyStored() >= fePerTick;
             boolean hasSpace = canInsertItemIntoOutputs(recipe.output1(), recipe.output2());
-
-            if (!hasEnergy && shouldDebug) System.out.println("[Крафт] ОШИБКА: Не хватает энергии для крафта!");
-            if (!hasSpace && shouldDebug) System.out.println("[Крафт] ОШИБКА: Нет места в слотах выхода!");
 
             if (hasEnergy && hasSpace) {
                 energyStorage.extractEnergy(fePerTick, false);
@@ -155,13 +129,11 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
                 isDirty = true;
 
                 if (this.progress >= this.maxProgress) {
-                    if (shouldDebug) System.out.println("[Крафт] ГОТОВО! Выдаем предмет.");
                     craftItem(recipe);
                     this.progress = 0;
                 }
             }
         } else {
-            if (shouldDebug) System.out.println("[Крафт] ОШИБКА: Рецепт НЕ НАЙДЕН в JSON!");
             if (this.progress > 0) {
                 this.progress = 0;
                 isDirty = true;

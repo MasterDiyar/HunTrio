@@ -49,6 +49,7 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.JOYSTICK);
                         output.accept(ModItems.ROBOT_SPAWN_EGG);
                         output.accept(ModBlocks.ELECTRIC_FURNACE);
+                        output.accept(ModItems.GRAPHITE_RAPIER);
 
                         //output.accept(ModItems.);
                     }).build());

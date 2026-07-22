@@ -11,6 +11,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -36,11 +38,12 @@ public class Desiccant extends Block {
             Block.box(14, 11, 2, 16, 16, 14)
     );
 
-    public static VoxelShape getSHAPE() {
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
-    public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 3);
+    public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 5);
 
     public Desiccant(Properties properties){
         super(properties);
@@ -62,9 +65,7 @@ public class Desiccant extends Block {
 
         if (currentStage == 0 && stack.is(Items.WATER_BUCKET)) {
             if (!level.isClientSide) {
-                // Меняем стадию на 1
                 level.setBlock(pos, state.setValue(STAGE, 1), 3);
-                // Забираем воду, возвращаем пустое ведро (если игрок не в креативе)
                 if (!player.isCreative()) {
                     player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                 }
@@ -95,6 +96,29 @@ public class Desiccant extends Block {
             return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
 
+        if (currentStage == 1 && stack.is(Items.DRIED_KELP_BLOCK)){
+            if (!level.isClientSide){
+                level.setBlock(pos, state.setValue(STAGE, 4),3);
+                if (!player.isCreative()) stack.shrink(1);
+                level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 0.95F, 1.0F);
+                level.scheduleTick(pos, this, 100);
+            }
+            return  ItemInteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (currentStage == 5 && stack.is(Items.GLASS_BOTTLE)) {
+            if (!level.isClientSide) {
+
+                Block.popResource(level, pos, new ItemStack(ModItems.SALT_JAR.get(), 1));
+                if (!player.isCreative()) stack.shrink(1);
+                level.setBlock(pos, state.setValue(STAGE, 0), 3);
+                level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 1.0F);
+            }
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+
+
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
@@ -104,6 +128,15 @@ public class Desiccant extends Block {
 
             if (random.nextInt(100) < 10) {
                 level.setBlock(pos, state.setValue(STAGE, 3), 3);
+            } else {
+                level.setBlock(pos, state.setValue(STAGE, 0), 3);
+            }
+
+            level.playSound(null, pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0F, 1.0F);
+        }
+        if (state.getValue(STAGE) == 4){
+            if (random.nextInt(100) < 80) {
+                level.setBlock(pos, state.setValue(STAGE, 5), 3);
             } else {
                 level.setBlock(pos, state.setValue(STAGE, 0), 3);
             }

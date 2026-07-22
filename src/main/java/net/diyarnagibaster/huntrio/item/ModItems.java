@@ -4,6 +4,9 @@ import net.diyarnagibaster.huntrio.HunTrio;
 import net.diyarnagibaster.huntrio.entity.ModEntities;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PotionItem;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.component.Tool;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -40,7 +43,9 @@ public class ModItems {
             RESEARCH_BOOK = ITEMS.register("research_book",
                     ()-> new ResearchBookItem(new Item.Properties())),
             ROBOT_SPAWN_EGG = ITEMS.register("robot_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntities.DRONE_MK1, 0x7A7A7A, 0x1F1F1F, new Item.Properties()));
+            () -> new DeferredSpawnEggItem(ModEntities.DRONE_MK1, 0x7A7A7A, 0x1F1F1F, new Item.Properties())),
+            GRAPHITE_RAPIER = ITEMS.register("graphite_rapier", () -> new SwordItem(ModTiers.GRAPHITE, new Item.Properties()
+                    .durability(320).stacksTo(1).attributes(SwordItem.createAttributes(ModTiers.GRAPHITE, 3, -2))));
 
     public static void register(IEventBus eventBus){
 
