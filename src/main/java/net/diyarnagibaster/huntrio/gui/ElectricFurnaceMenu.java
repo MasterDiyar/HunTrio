@@ -3,6 +3,7 @@ package net.diyarnagibaster.huntrio.gui;
 
 import net.diyarnagibaster.huntrio.blocks.ModBlocks;
 import net.diyarnagibaster.huntrio.entity.ElectricFurnaceBlockEntity;
+import net.diyarnagibaster.huntrio.item.ElectroItem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +17,7 @@ public class ElectricFurnaceMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public ElectricFurnaceMenu(int containerId, Inventory playerInv, FriendlyByteBuf extraData) {
-        this(containerId, playerInv, playerInv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(containerId, playerInv, playerInv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
     // Конструктор для Сервера
@@ -25,22 +26,23 @@ public class ElectricFurnaceMenu extends AbstractContainerMenu {
         this.blockEntity = (ElectricFurnaceBlockEntity) entity;
         this.data = data;
 
-        // Добавляем данные для синхронизации (полоска энергии)
         this.addDataSlots(this.data);
 
-        // 1. Добавляем наши 5 слотов машины (Координаты X и Y настроишь под свою картинку)
-        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 0, 44, 20)); // Вход 1
-        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 1, 62, 20)); // Вход 2
-        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 2, 8, 53));  // Батарея
-        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 3, 116, 35)); // Выход 1
-        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 4, 134, 35)); // Выход 2
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 0, 44, 20));
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 1, 62, 20));
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 2, 8, 53){
+            @Override public boolean mayPlace(ItemStack stack) {
+                return stack.getItem() instanceof ElectroItem;}});
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 3, 116, 35){@Override
+        public boolean mayPlace(ItemStack stack) {return false;}});
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 4, 134, 35) {@Override
+        public boolean mayPlace(ItemStack stack) {return false;}});
 
-        // 2. Добавляем 36 слотов инвентаря игрока (Стандартная сетка)
+
         addPlayerInventory(playerInv);
         addPlayerHotbar(playerInv);
     }
 
-    // Вспомогательные методы для сетки игрока
     private void addPlayerInventory(Inventory playerInv) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
@@ -55,24 +57,38 @@ public class ElectricFurnaceMenu extends AbstractContainerMenu {
         }
     }
 
-    // Методы для экрана (чтобы рисовать полоску энергии)
     public int getEnergy() { return this.data.get(0); }
     public int getMaxEnergy() { return this.data.get(1); }
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
-        // Логика Shift-клика (оставим базовой, чтобы игра не крашилась)
         Slot slot = this.slots.get(index);
-        if (!slot.hasItem()) return ItemStack.EMPTY;
-        ItemStack itemstack1 = slot.getItem();
-        ItemStack itemstack = itemstack1.copy();
-        if (index < 5) { // Если кликнули в печке -> кидаем в инвентарь
-            if (!this.moveItemStackTo(itemstack1, 5, this.slots.size(), true)) return ItemStack.EMPTY;
-        } else if (!this.moveItemStackTo(itemstack1, 0, 5, false)) { // Из инвентаря -> в печку
-            return ItemStack.EMPTY;
+        if (slot == null || !slot.hasItem()) return ItemStack.EMPTY;
+
+        ItemStack stackInSlot = slot.getItem();
+        ItemStack originalStack = stackInSlot.copy();
+
+        if (index < 5) {
+            if (!this.moveItemStackTo(stackInSlot, 5, this.slots.size(), true))
+                return ItemStack.EMPTY;
         }
-        if (itemstack1.isEmpty()) slot.set(ItemStack.EMPTY); else slot.setChanged();
-        return itemstack;
+        else {
+            if (stackInSlot.getItem() instanceof ElectroItem) {
+                if (!this.moveItemStackTo(stackInSlot, 2, 3, false))
+                    return ItemStack.EMPTY;
+            }
+            else {
+                if (!this.moveItemStackTo(stackInSlot, 0, 1, false) &&
+                        !this.moveItemStackTo(stackInSlot, 1, 2, false))
+                    return ItemStack.EMPTY;
+            }
+        }
+
+        if (stackInSlot.isEmpty())
+            slot.set(ItemStack.EMPTY);
+        else slot.setChanged();
+
+        return originalStack;
     }
 
     @Override

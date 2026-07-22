@@ -7,6 +7,6 @@
     "south": "huntrio:block/electro_furnace_side",
     "east": "huntrio:block/electro_furnace_side",
     "west": "huntrio:block/electro_furnace_side",
-    "particle": "huntrio:block/research_table_side"
+    "particle": "huntrio:block/electro_furnace_side"
   }
 }

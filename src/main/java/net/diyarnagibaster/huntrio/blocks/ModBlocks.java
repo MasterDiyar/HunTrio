@@ -27,7 +27,7 @@ public class ModBlocks {
             DESICCANT = registerBlock("desiccant",
             () -> new Desiccant(BlockBehaviour.Properties.of().strength(3.0f).noOcclusion().
                     requiresCorrectToolForDrops().sound(SoundType.LODESTONE))),
-            ELECTRIC_FURNACE = registerBlock("electric_furnace",
+            ELECTRIC_FURNACE = registerBlock("electro_furnace",
                     () -> new ElectricFurnaceBlock(BlockBehaviour.Properties.of().strength(2f)
                             .requiresCorrectToolForDrops().sound(SoundType.STONE)));
 

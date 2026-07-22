@@ -1,6 +1,10 @@
 package net.diyarnagibaster.huntrio.entity;
 
 import net.diyarnagibaster.huntrio.gui.ElectricFurnaceMenu;
+import net.diyarnagibaster.huntrio.item.ElectroItem;
+import net.diyarnagibaster.huntrio.recipe.ElectricFurnaceInput;
+import net.diyarnagibaster.huntrio.recipe.ElectricFurnaceRecipe;
+import net.diyarnagibaster.huntrio.research.ModRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -11,7 +15,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.EnergyStorage;
@@ -22,10 +30,21 @@ import javax.annotation.Nullable;
 
 public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvider {
 
+    public int progress = 0;
+    public int maxProgress = 0;
+
     public final ItemStackHandler inventory = new ItemStackHandler(5) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
+        }
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return switch (slot) {
+                case 3, 4 -> false; // Слоты 3 и 4 (Выход) — строго запрещаем класть что-либо
+                case 2 -> stack.getItem() instanceof ElectroItem; // Слот 1 (Батарея) — только ElectroItem
+                default -> super.isItemValid(slot, stack); // Слоты 0 и 2 (Вход) — разрешаем всё
+            };
         }
     };
 
@@ -58,37 +77,130 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
 
         boolean isDirty = false;
 
-        // --- ЛОГИКА БАТАРЕЙКИ (Высасывание FE из предмета в слоте 1) ---
-        ItemStack batteryStack = inventory.getStackInSlot(1);
-        if (!batteryStack.isEmpty()) {
-            // Ищем энергетическую "способность" у предмета. Передаем null в качестве контекста.
-            IEnergyStorage batteryEnergy = batteryStack.getCapability(Capabilities.EnergyStorage.ITEM, null);
+        // Будем выводить дебаг-сообщения только раз в секунду (каждые 20 тиков)
+        boolean shouldDebug = (level.getGameTime() % 20 == 0);
 
-            if (batteryEnergy != null && batteryEnergy.canExtract()) {
-                int energyNeeded = energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored();
-
-                if (energyNeeded > 0) {
-                    int extracted = batteryEnergy.extractEnergy(Math.min(energyNeeded, 1000), false);
-                    if (extracted > 0) {
-                        energyStorage.receiveEnergy(extracted, false);
-                        isDirty = true;
-                    }
-                }
-            }
+        if (shouldDebug) {
+            System.out.println("=== [DEBUG ПЕЧИ] ===");
+            System.out.println("Энергия внутри печи: " + energyStorage.getEnergyStored() + " / " + energyStorage.getMaxEnergyStored());
         }
 
-        ItemStack input = inventory.getStackInSlot(0);
-        int fePerTick = 50;
+        // --- ЛОГИКА БАТАРЕИ ---
+        ItemStack batteryStack = inventory.getStackInSlot(2);
+        if (!batteryStack.isEmpty()) {
+            if (shouldDebug) System.out.println("[Батарея] Предмет в слоте 2: " + batteryStack.getItem());
 
-        if (!input.isEmpty() && energyStorage.getEnergyStored() >= fePerTick) {
+            IEnergyStorage batteryEnergy = batteryStack.getCapability(Capabilities.EnergyStorage.ITEM, null);
 
-            energyStorage.extractEnergy(fePerTick, false);
-            isDirty = true;
+            if (batteryEnergy == null) {
+                if (shouldDebug) System.out.println("[Батарея] ОШИБКА: Capability энергии = NULL (Игра не считает это батарейкой!)");
+            } else {
+                if (shouldDebug) System.out.println("[Батарея] Заряд предмета: " + batteryEnergy.getEnergyStored());
+
+                if (batteryEnergy.canExtract()) {
+                    int energyNeeded = energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored();
+                    if (energyNeeded > 0) {
+                        int extracted = batteryEnergy.extractEnergy(Math.min(energyNeeded, 1000), false);
+                        if (extracted > 0) {
+                            if (shouldDebug) System.out.println("[Батарея] Успешно высосано: " + extracted + " FE");
+                            energyStorage.receiveEnergy(extracted, false);
+                            inventory.setStackInSlot(2, batteryStack);
+                            isDirty = true;
+                        } else {
+                            if (shouldDebug) System.out.println("[Батарея] Метод extractEnergy вернул 0!");
+                        }
+                    }
+                } else {
+                    if (shouldDebug) System.out.println("[Батарея] ОШИБКА: canExtract() вернул false!");
+                }
+            }
+        } else {
+            if (shouldDebug) System.out.println("[Батарея] Слот 2 пуст.");
+        }
+
+        // --- ЛОГИКА КРАФТА ---
+        ItemStack input1 = inventory.getStackInSlot(0);
+        ItemStack input2 = inventory.getStackInSlot(1);
+
+        if (input1.isEmpty() && input2.isEmpty()) {
+            if (shouldDebug) System.out.println("[Крафт] Слоты 0 и 1 пусты. Ждем.");
+            if (this.progress > 0) {
+                this.progress = 0;
+                setChanged();
+            }
+            return;
+        }
+
+        if (shouldDebug) System.out.println("[Крафт] Пытаемся найти рецепт для: " + input1.getItem() + " + " + input2.getItem());
+
+        ElectricFurnaceInput recipeInput = new ElectricFurnaceInput(input1, input2);
+        var recipeHolder = level.getRecipeManager().getRecipeFor(ModRecipes.ELECTRIC_SMELTING_TYPE.get(), recipeInput, level);
+
+        if (recipeHolder.isPresent()) {
+            ElectricFurnaceRecipe recipe = recipeHolder.get().value();
+            this.maxProgress = recipe.processingTime();
+            int fePerTick = recipe.energyCost() / this.maxProgress;
+
+            if (shouldDebug) System.out.println("[Крафт] Рецепт НАЙДЕН! Требуется: " + fePerTick + " FE/тик. Прогресс: " + this.progress + "/" + this.maxProgress);
+
+            boolean hasEnergy = energyStorage.getEnergyStored() >= fePerTick;
+            boolean hasSpace = canInsertItemIntoOutputs(recipe.output1(), recipe.output2());
+
+            if (!hasEnergy && shouldDebug) System.out.println("[Крафт] ОШИБКА: Не хватает энергии для крафта!");
+            if (!hasSpace && shouldDebug) System.out.println("[Крафт] ОШИБКА: Нет места в слотах выхода!");
+
+            if (hasEnergy && hasSpace) {
+                energyStorage.extractEnergy(fePerTick, false);
+                this.progress++;
+                isDirty = true;
+
+                if (this.progress >= this.maxProgress) {
+                    if (shouldDebug) System.out.println("[Крафт] ГОТОВО! Выдаем предмет.");
+                    craftItem(recipe);
+                    this.progress = 0;
+                }
+            }
+        } else {
+            if (shouldDebug) System.out.println("[Крафт] ОШИБКА: Рецепт НЕ НАЙДЕН в JSON!");
+            if (this.progress > 0) {
+                this.progress = 0;
+                isDirty = true;
+            }
         }
 
         if (isDirty) {
             setChanged();
         }
+    }
+
+    private boolean canInsertItemIntoOutputs(ItemStack out1, ItemStack out2) {
+        return canInsert(out1, 3) && canInsert(out2, 4);
+    }
+
+    private boolean canInsert(ItemStack outputStack, int outputSlot) {
+        if (outputStack.isEmpty()) return true; // Если предмет пустой (например, нет второго выхода) — всё ок
+        ItemStack currentOutput = inventory.getStackInSlot(outputSlot);
+        if (currentOutput.isEmpty()) return true;
+        if (!ItemStack.isSameItemSameComponents(currentOutput, outputStack)) return false;
+
+        return currentOutput.getCount() + outputStack.getCount() <= inventory.getSlotLimit(outputSlot);
+    }
+
+    private void craftItem(ElectricFurnaceRecipe recipe) {
+        inventory.getStackInSlot(0).shrink(1);
+        inventory.getStackInSlot(1).shrink(1);
+
+        insertOutput(recipe.output1(), 3);
+        insertOutput(recipe.output2(), 4);
+    }
+    private void insertOutput(ItemStack outputStack, int outputSlot) {
+        if (outputStack.isEmpty()) return;
+
+        ItemStack currentOutput = inventory.getStackInSlot(outputSlot);
+        if (currentOutput.isEmpty())
+            inventory.setStackInSlot(outputSlot, outputStack.copy());
+        else
+            currentOutput.grow(outputStack.getCount());
     }
 
     @Override
@@ -111,17 +223,21 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
             return switch (index) {
                 case 0 -> energyStorage.getEnergyStored();
                 case 1 -> energyStorage.getMaxEnergyStored();
+                case 2 -> progress;
+                case 3 -> maxProgress;
                 default -> 0;
             };
         }
-
         @Override
         public void set(int index, int value) {
+            switch (index) {
+                case 2 -> progress = value;
+                case 3 -> maxProgress = value;
+            }
         }
-
         @Override
         public int getCount() {
-            return 2; // Передаем 2 значения
+            return 4;
         }
     };
 

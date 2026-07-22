@@ -51,6 +51,7 @@ public class HunTrio {
         ModMenus.MENUS.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
+        ModDataComponents.DATA_COMPONENTS.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

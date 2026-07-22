@@ -1,7 +1,7 @@
 package net.diyarnagibaster.huntrio.research;
 
-
 import net.diyarnagibaster.huntrio.HunTrio;
+import net.diyarnagibaster.huntrio.recipe.ElectricFurnaceRecipe;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -17,11 +17,15 @@ public class ModRecipes {
     public static final DeferredRegister<RecipeType<?>> TYPES =
             DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, HunTrio.MODID);
 
-    // Регистрируем Сериализатор (JSON-переводчик)
+    public static final Supplier<RecipeType<ElectricFurnaceRecipe>> ELECTRIC_SMELTING_TYPE =
+            TYPES.register("electric_smelting", () -> ElectricFurnaceRecipe.Type.INSTANCE);
+
+    public static final Supplier<RecipeSerializer<ElectricFurnaceRecipe>> ELECTRIC_SMELTING_SERIALIZER =
+            SERIALIZERS.register("electric_smelting", () -> ElectricFurnaceRecipe.Serializer.INSTANCE);
+
     public static final Supplier<RecipeSerializer<ResearchRecipe>> RESEARCH_SERIALIZER =
             SERIALIZERS.register("research", ResearchRecipe.Serializer::new);
 
-    // Регистрируем сам Тип рецепта (Категорию)
     public static final Supplier<RecipeType<ResearchRecipe>> RESEARCH_TYPE =
             TYPES.register("research", () -> new RecipeType<>() {
                 @Override

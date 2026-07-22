@@ -1,0 +1,15 @@
+{
+  "type": "huntrio:electric_smelting",
+  "ingredient1": {
+    "item": "minecraft:coal"
+  },
+  "ingredient2": {
+    "item": "minecraft:flint"
+  },
+  "output1": {
+    "id": "huntrio:graphite",
+    "count": 1
+  },
+  "energy": 2500,
+  "time": 40
+}

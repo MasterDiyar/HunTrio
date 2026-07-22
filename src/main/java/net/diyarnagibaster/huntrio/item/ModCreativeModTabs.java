@@ -42,10 +42,14 @@ public class ModCreativeModTabs {
                         output.accept(ModBlocks.RESEARCH_TABLE);
                         output.accept(ModItems.RESEARCH_BOOK);
                         output.accept(ModItems.POTATO_BATTERY);
+                        ElectroItem potatoBatteryItem = (ElectroItem) ModItems.POTATO_BATTERY.get();
+                        output.accept(potatoBatteryItem.getChargedStack());
                         output.accept(ModItems.SULFUR_JAR);
                         output.accept(ModItems.SALT_JAR);
                         output.accept(ModItems.JOYSTICK);
                         output.accept(ModItems.ROBOT_SPAWN_EGG);
+                        output.accept(ModBlocks.ELECTRIC_FURNACE);
+
                         //output.accept(ModItems.);
                     }).build());
 

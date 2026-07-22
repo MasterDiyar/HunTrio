@@ -31,7 +31,7 @@ public class ModItems {
             TELLURIUM_ORE = ITEMS.register("tellurium_ore", () -> new Item(new Item.Properties())),
             TELLURIUM = ITEMS.register("tellurium_ingot", () -> new Item(new Item.Properties())),
             SALT_JAR = ITEMS.register("salt_in_a_jar", () -> new Item(new Item.Properties())),
-            POTATO_BATTERY = ITEMS.register(("potato_battery"), () -> new Item(new Item.Properties())),
+            POTATO_BATTERY = ITEMS.register(("potato_battery"), () -> new ElectroItem(new Item.Properties().stacksTo(1), 10000, 100, 100)),
             JOYSTICK = ITEMS.register("joystick", ()-> new JoystickItem(new Item.Properties())),
             ALUMINIUM_BRUSH = ITEMS.register("aluminium_brush",
             () -> new CustomBrushItem(new Item.Properties().durability(198), 35)),

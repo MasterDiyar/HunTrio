@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ElectricFurnaceScreen extends AbstractContainerScreen<ElectricFurnaceMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HunTrio.MODID, "textures/gui/electric_furnace_gui.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HunTrio.MODID, "textures/gui/electro_furnace_gui.png");
 
     public ElectricFurnaceScreen(ElectricFurnaceMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
