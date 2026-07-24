@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "huntrio:salt_in_a_jar"
+  },
+  "base": {
+    "item": "minecraft:iron_pickaxe"
+  },
+  "addition": {
+    "item": "minecraft:bone_meal"
+  },
+  "result": {
+    "id": "huntrio:salt_pickaxe"
+  }
+}

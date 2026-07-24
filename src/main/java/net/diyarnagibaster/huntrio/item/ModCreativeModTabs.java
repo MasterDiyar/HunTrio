@@ -39,6 +39,8 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.TELLURIUM);
                         output.accept(ModItems.TELLURIUM_ORE);
                         output.accept(ModItems.SULFUR);
+                        output.accept(ModItems.SILICON_SLUG);
+                        output.accept(ModItems.DIOD);
                         output.accept(ModBlocks.RESEARCH_TABLE);
                         output.accept(ModItems.RESEARCH_BOOK);
                         output.accept(ModItems.POTATO_BATTERY);
@@ -49,8 +51,9 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.JOYSTICK);
                         output.accept(ModItems.ROBOT_SPAWN_EGG);
                         output.accept(ModBlocks.ELECTRIC_FURNACE);
+                        output.accept(ModItems.ALNIMAGNET);
                         output.accept(ModItems.GRAPHITE_RAPIER);
-
+                        output.accept(ModItems.SALT_PICKAXE);
                         //output.accept(ModItems.);
                     }).build());
 

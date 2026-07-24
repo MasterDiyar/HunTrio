@@ -48,7 +48,7 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
         }
     };
 
-    public final EnergyStorage energyStorage = new EnergyStorage(50000, 1000, 0) {
+    public final EnergyStorage energyStorage = new EnergyStorage(50000, 1000, 1000) {
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
             int received = super.receiveEnergy(maxReceive, simulate);
@@ -61,6 +61,10 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
             int extracted = super.extractEnergy(maxExtract, simulate);
             if (extracted > 0 && !simulate) setChanged();
             return extracted;
+        }
+
+        public void setEnergyForLoad() {
+            setEnergyForLoad(0);
         }
 
         public void setEnergyForLoad(int energyAmount) {
@@ -117,6 +121,7 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
         if (recipeHolder.isPresent()) {
             ElectricFurnaceRecipe recipe = recipeHolder.get().value();
             this.maxProgress = recipe.processingTime();
+            System.out.println(recipe.energyCost());
             int fePerTick = recipe.energyCost() / this.maxProgress;
 
 
@@ -186,7 +191,7 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         inventory.deserializeNBT(registries, tag.getCompound("inventory"));
-        energyStorage.receiveEnergy(tag.getInt("energy"), true);
+        energyStorage.receiveEnergy(tag.getInt("energy"), false);
     }
 
     protected final ContainerData data = new ContainerData() {

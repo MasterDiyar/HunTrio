@@ -74,7 +74,7 @@ public class Desiccant extends Block {
             return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
 
-        if (currentStage == 1 && stack.is(Items.SAND)) {
+        if (currentStage == 1 && stack.is(ModItems.SALT_JAR.get())) {
             if (!level.isClientSide) {
                 level.setBlock(pos, state.setValue(STAGE, 2), 3);
                 if (!player.isCreative()) stack.shrink(1);
@@ -113,6 +113,19 @@ public class Desiccant extends Block {
                 if (!player.isCreative()) stack.shrink(1);
                 level.setBlock(pos, state.setValue(STAGE, 0), 3);
                 level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 1.0F);
+            }
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (currentStage == 5 && stack.is(Items.WATER_BUCKET)) {
+            if (!level.isClientSide) {
+                level.setBlock(pos, state.setValue(STAGE, 2), 3);
+                if (!player.isCreative()) {
+                    player.setItemInHand(hand, new ItemStack(Items.BUCKET));
+                }
+                level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+
+                level.scheduleTick(pos, this, 100);
             }
             return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }

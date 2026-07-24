@@ -1,0 +1,19 @@
+{
+  "type": "huntrio:electric_smelting",
+  "ingredient1": {
+    "item": "minecraft:sand"
+  },
+  "ingredient2": {
+    "item": "minecraft:sand"
+  },
+  "output1": {
+    "id": "minecraft:glass",
+    "count": 1
+  },
+  "output2":{
+    "id" : "huntrio:silicon_slug",
+    "count" : 2
+  },
+  "energy": 500,
+  "time": 100
+}

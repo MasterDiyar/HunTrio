@@ -32,10 +32,16 @@
   "item.huntrio.graphite" : "Graphite Rod",
   "item.huntrio.coal_dust" : "Coal Dust",
   "item.huntrio.research_book" : "Secret foliant",
+  "item.huntrio.salt_in_a_jar" : "Salt Jar",
+  "item.huntrio.graphite_rapier" : "Graphite Rapier",
+  "item.huntrio.sulfur_in_a_jar" : "Sulfur Jar",
+  "item.huntrio.potato_battery" : "Potato Battery",
+  "item.huntrio.joystick" : "Joystick",
+  "item.huntio.salt_pickaxe" : "Salt Pickaxe",
 
   "block.huntrio.aluminium_block" : "Aluminium Block",
   "block.huntrio.desiccant" : "Desiccant",
-
+  "block.huntrio.research_table": "Research Table",
   "enchantment.huntrio.knowledge_of_ages": "Knowledge of Ages"
 
 
