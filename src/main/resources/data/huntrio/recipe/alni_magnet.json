@@ -1,0 +1,30 @@
+{
+  "type" : "minecraft:crafting_shaped",
+  "category" : "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:red_dye"
+    },
+    "B": {
+      "item" : "minecraft:blue_dye"
+    },
+    "C": {
+      "item" : "huntrio:aluminium_ingot"
+    },
+    "D": {
+      "item" : "minecraft:iron_ingot"
+    },
+    "E": {
+      "item": "huntrio:nickel_ingot"
+    }
+  },
+  "pattern": [
+    "BEC",
+    "BCE",
+    "DAA"
+  ],
+  "result": {
+    "count": 1,
+    "id" : "huntrio:alni_magnet"
+  }
+}

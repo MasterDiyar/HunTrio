@@ -54,6 +54,10 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.ALNIMAGNET);
                         output.accept(ModItems.GRAPHITE_RAPIER);
                         output.accept(ModItems.SALT_PICKAXE);
+                        output.accept(ModItems.CLEAR_ALUMINIUM_INGOT);
+                        output.accept(ModItems.NETHER_DIOD);
+                        output.accept(ModBlocks.LITHIUM_TNT);
+                        output.accept(ModItems.ALUMINIUM_FOIL);
                         //output.accept(ModItems.);
                     }).build());
 

@@ -121,7 +121,6 @@ public class ElectricFurnaceBlockEntity extends BlockEntity implements MenuProvi
         if (recipeHolder.isPresent()) {
             ElectricFurnaceRecipe recipe = recipeHolder.get().value();
             this.maxProgress = recipe.processingTime();
-            System.out.println(recipe.energyCost());
             int fePerTick = recipe.energyCost() / this.maxProgress;
 
 

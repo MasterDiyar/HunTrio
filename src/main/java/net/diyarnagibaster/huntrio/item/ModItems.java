@@ -18,6 +18,8 @@ public class ModItems {
     public static final DeferredItem<Item>
             ALUMINIUM = ITEMS.register("aluminium", () -> new Item(new Item.Properties())),
             ALUMINIUM_INGOT = ITEMS.register("aluminium_ingot", () -> new Item(new Item.Properties())),
+            CLEAR_ALUMINIUM_INGOT = ITEMS.register("clear_aluminium_ingot", () -> new Item(new Item.Properties())),
+            ALUMINIUM_FOIL = ITEMS.register("aluminium_foil", () -> new Item(new Item.Properties())),
             LITHIUM_ORE = ITEMS.register("lithium_ore", () -> new Item(new Item.Properties())),
             LITHIUM_INGOT = ITEMS.register("lithium_ingot", () -> new Item(new Item.Properties())),
             NETHER_SILK = ITEMS.register("nether_silk", () -> new Item(new Item.Properties())),
@@ -36,6 +38,7 @@ public class ModItems {
             SALT_JAR = ITEMS.register("salt_in_a_jar", () -> new Item(new Item.Properties())),
             SILICON_SLUG = ITEMS.register("silicon_slug", () -> new Item(new Item.Properties())),
             DIOD = ITEMS.register("diod", () -> new Item(new Item.Properties())),
+            NETHER_DIOD = ITEMS.register("nether_diod", () -> new Item(new Item.Properties())),
             POTATO_BATTERY = ITEMS.register(("potato_battery"), () -> new ElectroItem(new Item.Properties().stacksTo(1), 10000, 100, 100)),
             JOYSTICK = ITEMS.register("joystick", ()-> new JoystickItem(new Item.Properties())),
             ALUMINIUM_BRUSH = ITEMS.register("aluminium_brush",

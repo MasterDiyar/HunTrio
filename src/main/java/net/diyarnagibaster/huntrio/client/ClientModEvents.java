@@ -6,8 +6,10 @@ import net.diyarnagibaster.huntrio.entity.DroneEntity;
 import net.diyarnagibaster.huntrio.entity.ModEntities;
 import net.diyarnagibaster.huntrio.gui.ElectricFurnaceScreen;
 import net.diyarnagibaster.huntrio.gui.ModMenus;
+import net.diyarnagibaster.huntrio.renderer.CustomTntRenderer;
 import net.diyarnagibaster.huntrio.server.DroneControlPayload;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.TntRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -19,9 +21,11 @@ import net.neoforged.neoforge.network.PacketDistributor;
 @EventBusSubscriber(modid = HunTrio.MODID)
 public class ClientModEvents {
 
+
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.DRONE_MK1.get(), DroneRenderer::new);
+        event.registerEntityRenderer(ModEntities.CUSTOM_TNT.get(), CustomTntRenderer::new);
     }
 
     @SubscribeEvent

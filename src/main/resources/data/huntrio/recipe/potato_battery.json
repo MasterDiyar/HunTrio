@@ -19,6 +19,9 @@
   ],
   "result": {
     "count": 1,
-    "id" : "huntrio:potato_battery"
+    "id" : "huntrio:potato_battery",
+    "components": {
+      "huntrio:energy": 10000
+    }
   }
 }

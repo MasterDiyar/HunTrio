@@ -1,0 +1,30 @@
+{
+  "type" : "minecraft:crafting_shaped",
+  "category" : "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "item" : "minecraft:bricks"
+    },
+    "C": {
+      "item" : "huntrio:graphite"
+    },
+    "D": {
+      "item" : "minecraft:blast_furnace"
+    },
+    "E": {
+      "item": "huntrio:alni_magnet"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "CDC",
+    "AEA"
+  ],
+  "result": {
+    "count": 1,
+    "id" : "huntrio:electro_furnace"
+  }
+}

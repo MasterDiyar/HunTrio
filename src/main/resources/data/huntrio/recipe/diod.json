@@ -1,0 +1,30 @@
+{
+  "type" : "minecraft:crafting_shaped",
+  "category" : "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:redstone"
+    },
+    "B": {
+      "item" : "minecraft:glass_bottle"
+    },
+    "C": {
+      "item" : "huntrio:graphite"
+    },
+    "D": {
+      "item" : "minecraft:string"
+    },
+    "E": {
+      "item": "huntrio:silicon_slug"
+    }
+  },
+  "pattern": [
+    "   ",
+    "ABA",
+    "CDE"
+  ],
+  "result": {
+    "count": 3,
+    "id" : "huntrio:potato_battery"
+  }
+}

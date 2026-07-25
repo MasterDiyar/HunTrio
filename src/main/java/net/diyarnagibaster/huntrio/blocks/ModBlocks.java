@@ -6,9 +6,11 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -29,7 +31,9 @@ public class ModBlocks {
                     requiresCorrectToolForDrops().sound(SoundType.LODESTONE))),
             ELECTRIC_FURNACE = registerBlock("electro_furnace",
                     () -> new ElectricFurnaceBlock(BlockBehaviour.Properties.of().strength(2f)
-                            .requiresCorrectToolForDrops().sound(SoundType.STONE)));
+                            .requiresCorrectToolForDrops().sound(SoundType.STONE))),
+            LITHIUM_TNT = registerBlock("lithium_tnt",
+                    () -> new CustomTntBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TNT)));
 
 
 

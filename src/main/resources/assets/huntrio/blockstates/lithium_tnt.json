@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "":
+    {"model" : "huntrio:block/lithium_tnt"}
+  }
+}

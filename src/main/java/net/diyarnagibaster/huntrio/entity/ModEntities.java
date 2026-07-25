@@ -4,6 +4,7 @@ import net.diyarnagibaster.huntrio.HunTrio;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 
@@ -19,4 +20,14 @@ public class ModEntities {
                     .clientTrackingRange(20)
                     .updateInterval(2)
                     .build("robot"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<CustomTntEntity>> CUSTOM_TNT =
+            ENTITY_TYPES.register("custom_tnt", () ->
+                    EntityType.Builder.<CustomTntEntity>of(CustomTntEntity::new, MobCategory.MISC)
+                            .fireImmune() // Не горит в лаве/огне до активации
+                            .sized(0.98F, 0.98F) // Ванильный размер куба ТНТ
+                            .clientTrackingRange(10) // Дальность прогрузки на клиенте
+                            .updateInterval(10) // Частота обновления позиций (в тиках)
+                            .build("custom_tnt")
+            );
 }

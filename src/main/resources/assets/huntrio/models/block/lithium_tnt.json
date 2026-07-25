@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "huntrio:block/lithium_tnt_bottom",
+    "up": "huntrio:block/lithium_tnt_top",
+    "north": "huntrio:block/lithium_tnt_side",
+    "south": "huntrio:block/lithium_tnt_side",
+    "east": "huntrio:block/lithium_tnt_side",
+    "west": "huntrio:block/lithium_tnt_side",
+    "particle": "huntrio:block/lithium_tnt_side"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type" : "minecraft:crafting_shaped",
+  "category" : "misc",
+  "key": {
+    "A": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "B": {
+      "item" : "minecraft:paper"
+    },
+    "C": {
+      "tag" : "c:stones"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "CCC",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id" : "huntrio:research_table"
+  }
+}

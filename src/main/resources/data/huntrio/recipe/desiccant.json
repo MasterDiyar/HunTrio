@@ -2,13 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "A A",
-    "A A",
-    "AAA"
+    "   ",
+    "ABA",
+    "C C"
   ],
   "key": {
     "A": {
       "item": "huntrio:aluminium_ingot"
+    },
+    "B": {
+      "item": "huntrio:aluminium_block"
+    },
+    "C": {
+      "item": "huntrio:graphite"
     }
   },
   "result": {
