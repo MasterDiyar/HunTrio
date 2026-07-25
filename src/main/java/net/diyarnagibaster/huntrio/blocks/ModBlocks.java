@@ -3,12 +3,11 @@ package net.diyarnagibaster.huntrio.blocks;
 import net.diyarnagibaster.huntrio.HunTrio;
 import net.diyarnagibaster.huntrio.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
@@ -32,6 +31,9 @@ public class ModBlocks {
             ELECTRIC_FURNACE = registerBlock("electro_furnace",
                     () -> new ElectricFurnaceBlock(BlockBehaviour.Properties.of().strength(2f)
                             .requiresCorrectToolForDrops().sound(SoundType.STONE))),
+            CICHORIUM = registerBlock("cichorium", () -> new FlowerBlock(
+                    MobEffects.SATURATION, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY)
+            )),
             LITHIUM_TNT = registerBlock("lithium_tnt",
                     () -> new CustomTntBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TNT)));
 

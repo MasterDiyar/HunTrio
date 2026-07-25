@@ -58,6 +58,8 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.NETHER_DIOD);
                         output.accept(ModBlocks.LITHIUM_TNT);
                         output.accept(ModItems.ALUMINIUM_FOIL);
+                        output.accept(ModBlocks.CICHORIUM);
+                        output.accept(ModItems.GLASS_SWORD);
                         //output.accept(ModItems.);
                     }).build());
 

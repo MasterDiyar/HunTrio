@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "": [
+      {"model": "huntrio:block/cichorium_1"},
+      {"model": "huntrio:block/cichorium_2"},
+      {"model": "huntrio:block/cichorium_3"}
+    ]
+  }
+}

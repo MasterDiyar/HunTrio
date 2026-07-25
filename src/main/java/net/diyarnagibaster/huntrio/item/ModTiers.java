@@ -15,6 +15,15 @@ public enum ModTiers implements Tier {
             1.5f,
             10,
             () -> Ingredient.of(ModItems.GRAPHITE.get())
+    ),
+
+    GLASS(
+      BlockTags.INCORRECT_FOR_STONE_TOOL,
+      32,
+      4,
+      0,
+      23,
+            () -> Ingredient.of(ModItems.SILICON_SLUG)
     );
 
     private final TagKey<Block> incorrectBlocksForDrops;

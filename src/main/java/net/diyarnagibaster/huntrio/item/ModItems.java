@@ -54,7 +54,9 @@ public class ModItems {
                     () -> new CustomPickaxeItem.Builder(Tiers.IRON, new Item.Properties().attributes(PickaxeItem.createAttributes(Tiers.IRON, 1.0F, -2.8F)))
                             .onBreak(Blocks.STONE, ModItems.NICKEL_ORE.get(), 0.5f).build()),
             GRAPHITE_RAPIER = ITEMS.register("graphite_rapier", () -> new SwordItem(ModTiers.GRAPHITE, new Item.Properties()
-                    .durability(320).stacksTo(1).attributes(SwordItem.createAttributes(ModTiers.GRAPHITE, 3, -2))));
+                    .durability(320).stacksTo(1).attributes(SwordItem.createAttributes(ModTiers.GRAPHITE, 3, -2)))),
+            GLASS_SWORD = ITEMS.register("glass_sword", () -> new GlassSwordItem(ModTiers.GLASS,  new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModTiers.GLASS, 10, -2.0F))));
 
 
     public static void register(IEventBus eventBus){
