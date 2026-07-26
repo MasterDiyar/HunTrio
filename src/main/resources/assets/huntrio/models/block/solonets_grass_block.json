@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "huntrio:block/solonets",
+    "up": "huntrio:block/solonets_grass_block_top",
+    "north": "huntrio:block/solonets_grass_block",
+    "south": "huntrio:block/solonets_grass_block",
+    "east": "huntrio:block/solonets_grass_block",
+    "west": "huntrio:block/solonets_grass_block",
+    "particle": "huntrio:block/solonets_grass_block"
+  }
+}

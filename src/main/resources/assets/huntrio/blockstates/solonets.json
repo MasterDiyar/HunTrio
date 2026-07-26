@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "":[
+    {"model" : "huntrio:block/solonets"},
+      {"model" : "huntrio:block/solonets1"}
+  ]}
+}

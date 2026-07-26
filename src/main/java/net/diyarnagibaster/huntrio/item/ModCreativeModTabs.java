@@ -60,6 +60,8 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.ALUMINIUM_FOIL);
                         output.accept(ModBlocks.CICHORIUM);
                         output.accept(ModItems.GLASS_SWORD);
+                        output.accept(ModBlocks.SOLONETS);
+                        output.accept(ModBlocks.SOLONETS_GRASS_BLOCK);
                         //output.accept(ModItems.);
                     }).build());
 

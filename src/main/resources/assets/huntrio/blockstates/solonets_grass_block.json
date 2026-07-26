@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "":[
+    {"model" : "huntrio:block/solonets_grass_block"},
+      {"model" : "huntrio:block/solonets_grass_block1"},
+      {"model" : "huntrio:block/solonets_grass_block2"}
+    ]}
+}

@@ -31,6 +31,8 @@ public class ModBlocks {
             ELECTRIC_FURNACE = registerBlock("electro_furnace",
                     () -> new ElectricFurnaceBlock(BlockBehaviour.Properties.of().strength(2f)
                             .requiresCorrectToolForDrops().sound(SoundType.STONE))),
+            SOLONETS = registerBlock("solonets", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT))),
+            SOLONETS_GRASS_BLOCK = registerBlock("solonets_grass_block", () -> new SolonetsGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK))),
             CICHORIUM = registerBlock("cichorium", () -> new FlowerBlock(
                     MobEffects.SATURATION, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY)
             )),
