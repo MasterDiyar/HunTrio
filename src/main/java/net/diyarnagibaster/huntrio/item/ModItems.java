@@ -2,6 +2,8 @@ package net.diyarnagibaster.huntrio.item;
 
 import net.diyarnagibaster.huntrio.HunTrio;
 import net.diyarnagibaster.huntrio.entity.ModEntities;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.level.block.Blocks;
@@ -62,6 +64,15 @@ public class ModItems {
     public static void register(IEventBus eventBus){
 
         ITEMS.register(eventBus);
+        /*
+        ItemProperties.register(ALUMINIUM_BRUSH.get(), ResourceLocation.fromNamespaceAndPath("minecraft","brushing"),(stack, level, entity, seed)
+                -> entity != null && entity.getUseItem() == stack
+                ? (float)(entity.getUseItemRemainingTicks() % 10) / 10.0F
+                : 0.0F);
 
+        ItemProperties.register(NETHERITE_BRUSH.get(), ResourceLocation.fromNamespaceAndPath("minecraft","brushing"),(stack, level, entity, seed)
+                -> entity != null && entity.getUseItem() == stack
+                ? (float)(entity.getUseItemRemainingTicks() % 10) / 10.0F
+                : 0.0F);*/
     }
 }
