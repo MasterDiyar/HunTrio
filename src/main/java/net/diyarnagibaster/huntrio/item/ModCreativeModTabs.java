@@ -62,6 +62,7 @@ public class ModCreativeModTabs {
                         output.accept(ModItems.GLASS_SWORD);
                         output.accept(ModBlocks.SOLONETS);
                         output.accept(ModBlocks.SOLONETS_GRASS_BLOCK);
+                        output.accept(ModItems.COBALT_COMPOSITE);
                         //output.accept(ModItems.);
                     }).build());
 

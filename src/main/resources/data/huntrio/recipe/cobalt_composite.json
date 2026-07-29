@@ -1,0 +1,21 @@
+{
+  "type" : "minecraft:crafting_shaped",
+  "category" : "misc",
+  "key": {
+    "A": {
+      "item": "huntrio:cobalt_ingot"
+    },
+    "B": {
+      "item" : "huntrio:nether_silk"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "B B",
+    "ABA"
+  ],
+  "result": {
+    "count": 4,
+    "id" : "huntrio:cobalt_composite"
+  }
+}

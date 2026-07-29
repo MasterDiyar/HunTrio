@@ -58,7 +58,8 @@ public class ModItems {
             GRAPHITE_RAPIER = ITEMS.register("graphite_rapier", () -> new SwordItem(ModTiers.GRAPHITE, new Item.Properties()
                     .durability(320).stacksTo(1).attributes(SwordItem.createAttributes(ModTiers.GRAPHITE, 3, -2)))),
             GLASS_SWORD = ITEMS.register("glass_sword", () -> new GlassSwordItem(ModTiers.GLASS,  new Item.Properties()
-                    .attributes(SwordItem.createAttributes(ModTiers.GLASS, 10, -2.0F))));
+                    .attributes(SwordItem.createAttributes(ModTiers.GLASS, 10, -2.0F)))),
+            COBALT_COMPOSITE = ITEMS.register("cobalt_composite", () -> new Item(new Item.Properties()));
 
 
     public static void register(IEventBus eventBus){
